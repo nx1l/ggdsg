@@ -1,0 +1,177 @@
+print("test")
+print('2.0')
+-----------------------
+pcall(function()
+    print('script is starting!')
+    repeat
+        task.wait(10)
+        function button_click (button_obj)
+            local events = {"MouseButton1Down", "MouseButton1Click", "Activated"}
+            
+            for i,v in pairs(events) do
+                for _,connection in pairs(getconnections(button_obj[v])) do
+                    pcall(function ()
+                        connection:Fire()
+                    end)
+                end
+            end
+        end
+    until game:GetService("Players").LocalPlayer.PlayerGui.AssetLoadUI.Enabled == false
+    print('play button click✅')
+    local Button = game:GetService("Players").LocalPlayer.PlayerGui.NewsApp.EnclosingFrame.MainFrame.Contents.PlayButton
+    button_click(Button)
+    task.wait(5)
+    local function rename(remotename,hashedremote)
+        hashedremote.Name = remotename
+    end
+    
+    table.foreach(getupvalue(require(game:GetService("ReplicatedStorage"):WaitForChild("Fsys")).load("RouterClient").init, 7),rename)
+end)
+repeat wait() until game:GetService("ReplicatedStorage").API:WaitForChild('AdminAPI/GetCmdrPlayerInventoryItems')
+if game:GetService("Players").LocalPlayer.PlayerGui.DialogApp.Dialog.ThemeColorDialog.Visible == true then
+    print('yes')
+    local BalckButton = game:GetService("Players").LocalPlayer.PlayerGui.DialogApp.Dialog.ThemeColorDialog.Info.Response:GetChildren()[math.random(3, 6)]
+    local ConfButton = game:GetService("Players").LocalPlayer.PlayerGui.DialogApp.Dialog.ThemeColorDialog.Buttons.ButtonTemplate
+    button_click(BalckButton)
+    repeat wait(1) print(BalckButton.Face.Position) until BalckButton.Face.Position == UDim2.new(0,0, 0.149999976, 0)
+    print('gang')
+    button_click(ConfButton)
+end
+print('Done!✅')
+-----------------------------
+
+local Upgrade = 'charge_power'
+local HomeGUI = game:GetService("Players").LocalPlayer.PlayerGui.NewsApp
+local HomeReg = game:GetService("Players").LocalPlayer.PlayerGui.ExtraButtonsApp
+local clientData = require(game.ReplicatedStorage.ClientModules.Core.ClientData)
+local playerData = clientData.get_data()[tostring(game.Players.LocalPlayer)]
+---------------
+repeat wait() until game:IsLoaded()
+    game:GetService("Players").LocalPlayer.Idled:connect(function()
+    game:GetService("VirtualUser"):ClickButton2(Vector2.new())
+end)
+-------------------
+    while wait(1) do
+    pcall(function()
+        local args = {
+            [1] = {
+                [1] = {
+                    ["kind"] = "lures_2023_normal_lure",
+                    ["properties"] = {
+                        ["cframe"] = CFrame.new(9.10009765625, 0, -21, 1, -3.82137093032941e-15, 8.742277657347586e-08, 3.82137093032941e-15, 1, 0, -8.742277657347586e-08, 0, 1)
+                    }
+                }
+            }
+        }
+        
+        game:GetService("ReplicatedStorage"):WaitForChild("API"):WaitForChild("HousingAPI/BuyFurnitures"):InvokeServer(unpack(args))
+        task.wait(1)
+        local clientData = require(game.ReplicatedStorage.ClientModules.Core.ClientData)
+        local playerData = clientData.get_data()[tostring(game.Players.LocalPlayer)]
+        local Event = workspace.HouseInteriors.furniture:GetChildren()
+        for num, i in Event do
+            if i:FindFirstChild('Lures2023NormalLure') then
+                print('you have lure!')
+                local OriginStr = i.Name
+                _G.Fs = string.gsub(OriginStr, game.Players.LocalPlayer.Name..'/1/nil/true/', "")
+            end
+        end
+        
+        local a = 0
+        for num_2, FoodData in playerData.inventory.food do
+            if FoodData.kind =='winter_2024_winter_deer_bait' and a == 0 then
+                local args2 = {
+                    [1] = game:GetService("Players").LocalPlayer,
+                    [2] = _G.Fs,
+                    [3] = "UseBlock",
+                    [4] = false,
+                    [5] = workspace:WaitForChild("PlayerCharacters"):WaitForChild(game.Players.LocalPlayer.Name)
+                }          
+                game:GetService("ReplicatedStorage"):WaitForChild("API"):WaitForChild("HousingAPI/ActivateFurniture"):InvokeServer(unpack(args2))
+                task.wait(.1)
+                local args = {
+                    [1] = game:GetService("Players").LocalPlayer,
+                    [2] = _G.Fs,
+                    [3] = "UseBlock",
+                    [4] = {
+                        ["bait_unique"] = FoodData.unique
+                    },
+                    [5] = workspace:WaitForChild("PlayerCharacters"):WaitForChild(game.Players.LocalPlayer.Name)
+                }
+               
+                game:GetService("ReplicatedStorage"):WaitForChild("API"):WaitForChild("HousingAPI/ActivateFurniture"):InvokeServer(unpack(args))
+            elseif a == 1 then
+                print('0'..' - '..a)
+                a = 0
+                break
+            end
+        end
+    end)
+        repeat
+            task.wait(5)
+            local args = {
+                [1] = "frostclaws_revenge"
+            }       
+            game:GetService("ReplicatedStorage"):WaitForChild("API"):WaitForChild("MinigameAPI/LobbyCreate"):InvokeServer(unpack(args))
+            task.wait(1)
+            local args = {
+                [1] = {
+                    ["startup_settings"] = {}
+                }
+            }        
+            game:GetService("ReplicatedStorage"):WaitForChild("API"):WaitForChild("MinigameAPI/LobbyStart"):FireServer(unpack(args))
+        until game:GetService("Players").LocalPlayer.PlayerGui.MinigameInGameApp.Enabled == true
+
+        local Event = workspace.Interiors:GetChildren()
+        for num, i in Event do
+            if string.find(i.Name, 'FrostclawsRevengeInterior') then
+                local originalString = i.Name
+                _G.WinterEventFindName = string.gsub(originalString, "FrostclawsRevengeInterior::", "")
+                print(_G.WinterEventFindName)
+                _G.EventName = i.Name
+            else
+                break
+            end
+        end
+        local RewardGUI = game:GetService("Players").LocalPlayer.PlayerGui.MinigameRewardsApp.Body
+        local GingerCountGUI = game:GetService("Players").LocalPlayer.PlayerGui.AltCurrencyIndicatorApp
+        while wait() do
+            local UpgradesGUI = game:GetService("Players").LocalPlayer.PlayerGui.FrostclawsRevengeUpgradeApp
+            if RewardGUI.Visible == true and GingerCountGUI.Enabled == true or GingerCountGUI.Enabled == true then
+                break
+            elseif UpgradesGUI.Enabled == true and Upgrade == 'charge_power' then
+                task.wait(1)
+                local args = {
+                    [1] = 'frostclaws_revenge::'.._G.WinterEventFindName,
+                    [2] = "upgrade_chosen",
+                    [3] = "charge_power"
+                }
+                
+                game:GetService("ReplicatedStorage"):WaitForChild("API"):WaitForChild("MinigameAPI/MessageServer"):FireServer(unpack(args))
+                UpgradesGUI.Enabled = true  
+                task.wait(1)
+                UpgradesGUI.Enabled = false
+            else
+                pcall(function ()
+                    local Enemys = workspace.Interiors[_G.EventName].LocalEnemies:GetChildren()
+                    for num2, i2 in Enemys do
+                        if RewardGUI.Visible == true then
+                            break
+                        else
+                            pcall(function ()
+                                local args = {
+                                    [1] = 'frostclaws_revenge::'.._G.WinterEventFindName,
+                                    [2] = "hit_enemies",
+                                    [3] = {
+                                        [1] = i2.Name
+                                    },
+                                    [4] = "pet_charge"
+                                }
+                                game:GetService("ReplicatedStorage"):WaitForChild("API"):WaitForChild("MinigameAPI/MessageServer"):FireServer(unpack(args))
+                            end)
+                        end
+                    end
+                end)
+            end
+        end
+    end
